@@ -60,5 +60,20 @@ module.exports =
 
             }
         }
+
+        getOneCreep(type) {
+            if(!this.freeCreeps.length > 0) return null;
+            var creeps = _.filter(this.freeCreeps, (c) => { return c.memory.role == type});
+            if(creeps.length > 0) return creeps.shift();
+            switch(type) {
+                case "harvest":
+                    creeps = _.sortBy(this.freeCreeps, (c) => { return c.memory.body.work})
+                    return creeps.shift();
+
+                default:
+
+                    return this.freeCreeps.shift();
+            }
+        }
     }
 
